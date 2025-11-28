@@ -1,0 +1,384 @@
+/*Global re-setting*/
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/*Creating a 'root-container' which will contain all the element of the application*/
+#root-container {
+  display: flex;
+  flex-direction: column;
+
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+
+  height: 100vh;
+  overflow: hidden;
+}
+
+/*Navbar design*/
+.navbar-container {
+  background-color: #222831;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  /* margin-bottom: 20px; */
+}
+
+.navbar-container > nav > ul > a {
+  color: white;
+  margin-right: 10px;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.navbar-container > nav > ul > a > i {
+  color: white;
+  /* margin-right: 20px; */
+  text-decoration: none;
+  font-size: 20px;
+}
+
+/*Login form*/
+#login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-form {
+  width: 70%;
+}
+
+#login-form > form {
+  width: 100%;
+  height: auto;
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-fieldset {
+  /* background-color: red; */
+  width: 30%;
+  height: 350px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  border: 1px solid #00204a;
+  border-radius: 2px;
+}
+
+#login-fieldset > legend {
+  font-size: 20px;
+  padding: 5px;
+}
+
+.input-labels {
+  margin-bottom: 5px;
+}
+
+.input-field {
+  font-family: "Arimo", sans-serif;
+  font-weight: 450;
+  font-style: normal;
+
+  height: 30px;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+#submit-button {
+  width: 30%;
+  height: 33px;
+  padding: 5px;
+  align-self: center;
+
+  font-family: "Arimo", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14px;
+
+  background-color: #0092ca;
+  border: 0px;
+  border-radius: 2px;
+  color: white;
+
+  cursor: pointer;
+}
+
+#submit-button:hover {
+  background-color: #005792;
+}
+
+/* Sign up page design */
+#signup-fieldset {
+  width: 33%;
+  height: 470px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  border: 1px solid #00204a;
+  border-radius: 2px;
+}
+
+/*base_chat_page style*/
+#chat_parent {
+  display: flex;
+  flex-direction: row;
+}
+
+#chat_parent > #user-details {
+  width: 25%;
+  height: 92vh;
+  overflow: auto; /*to make scrollable page*/
+}
+
+/*details page style (user-card portion)*/
+#chat_parent > #user-details > .user-card {
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  /* border-right: 1px solid black; */
+  display: flex;
+  margin-bottom: 5px;
+}
+
+#chat_parent > #user-details > .user-card:hover {
+  cursor: pointer;
+  background-color: #eef2e2;
+  border-radius: 10px;
+}
+
+#chat_parent > #user-details > .user-card > .user-image {
+  align-self: flex-start;
+  width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: crimson;
+}
+#icon {
+  font-size: 40px;
+}
+
+#chat_parent > #user-details > .user-card > .user-details {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+}
+
+#chat_parent > #user-details > .user-card > .user-details > h1 {
+  height: 50%;
+  font-size: 15px;
+  color: #323643;
+}
+
+#chat_parent > #user-details > .user-card > .user-details > h2 {
+  height: 50%;
+  font-size: 10px;
+  color: green;
+}
+
+/*details page style (Chat-details portion)*/
+#chat-details {
+  height: 92vh;
+  width: 75%;
+  background-color: #eef2e2;
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-container {
+  width: 100%;
+  height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#chat-container > .sender-msg {
+  width: 60%;
+  height: auto;
+  margin: 10px;
+  padding: 5px;
+}
+
+.msg-container {
+  width: auto;
+  background-color: #ddeedf;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+#chat-container > .receiver-msg {
+  height: auto;
+  margin: 10px;
+  padding: 5px;
+}
+
+#chat-container > .receiver-msg > .msg-container {
+  margin-left: 40%;
+}
+
+/*write-message_container style*/
+#write-message_container {
+  /* background-color: #c1c0b9; */
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #393e46;
+}
+#write-message_form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#write-message-input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  margin-left: 5px;
+}
+#send-message-btn {
+  height: 40px;
+  width: 40px;
+  background-color: transparent;
+  border: none;
+}
+
+#send-message-btn > i {
+  font-size: 25px;
+  cursor: pointer;
+  color: #212121;
+}
+
+/*profile-page style*/
+#profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#profile {
+  width: 30%;
+  padding: 20px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #dbd8e3;
+}
+
+#user-img > i {
+  font-size: 100px;
+  color: crimson;
+}
+#user-info {
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.user-info > p {
+  font-weight: bold;
+  padding: 5px;
+}
+
+/*Search user style*/
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  /* background-color: #393e46; */
+  height: auto;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-form {
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.search-form > input {
+  width: 400px;
+  height: 30px;
+  font-size: 16px;
+  border: 1px solid #393e46;
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.search-form > button{
+  height: 30px;
+  width: 70px;
+  background-color: #393e46;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.search-reasult {
+  margin-top: 20px;
+  /* background-color: #0092ca; */
+  width: 50%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: baseline;
+  overflow-x: auto;
+}
+
+.user-result{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  margin-left: 85px;
+  margin-top: 10px;
+}
+
+.user-result > h1{
+  font-size: 18px;
+  color: black;
+}
+
+.user-header{
+  width: 100vw;
+  /* background-color: #323643; */
+  height: 55px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-bottom: 1px solid black;
+}
+
+.user-header > span, .user-header > h5{
+  margin-left: 5px;
+}

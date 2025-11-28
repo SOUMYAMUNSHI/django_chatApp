@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block 'context' %}
+<div id="chat_parent">
+  <div id="user-details">
+
+    {% block 'user-data' %}
+    {% endblock 'user-data' %}
+
+    {% block 'load_user-data' %}
+    {% endblock 'load_user-data' %}
+
+  </div>
+
+  <div id="chat-details">
+    {% block 'chat-data' %}
+
+    {% endblock 'chat-data' %}
+
+
+    {% block send-message %}
+
+
+    {% endblock send-message %}
+
+    {% endblock 'context' %}

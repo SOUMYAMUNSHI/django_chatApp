@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block 'context' %}
+<div class="search-container">
+    <form action="" method="POST" class="search-form">
+        {% csrf_token %}
+        <input type="text" name="user-name" placeholder="Search user here">
+        <button>Search</button>
+    </form>
+    <div class="search-reasult">
+        {% for user in users %}
+        <div class="user-result">
+            <span class="user-image"><i id="icon" class="bi bi-person-circle"></i></span>
+            <a href="{% url 'loadChat' user%}"><h3>{{user}}</h3>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock 'context' %}

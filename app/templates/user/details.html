@@ -1,0 +1,179 @@
+{% extends "./base_chat_page.html" %}
+
+{% block 'user-data' %}
+
+{% for user in users %}
+
+
+
+<div class="user-card">
+  <span class="user-image"><i id="icon" class="bi bi-person-circle"></i></span>
+  <span class="user-details">
+    <a href="{% url 'loadChat' user.username %}">{{user.first_name}}</a>
+    <h2>Active</h2>
+  </span>
+</div>
+
+
+
+
+{% endfor %}
+{% endblock 'user-data' %}
+
+
+
+{% block 'chat-data' %}
+
+{% if username %}
+
+<div class="user-header">
+  <span><i id="icon" class="bi bi-person-circle"></i></span>
+  <h5>{{username}}</h5>
+</div>
+
+
+<div id="chat-container">
+
+
+  {% for i in all_message %}
+  {% comment %} Load comment {% endcomment %}
+
+  {% if i.sender_id == send_user_id %}
+
+  <div class="sender-msg">
+    <div id="msg-container" class="msg-container">
+      <p>{{i.chat_msg}}</p>
+      <p>{{send_user_id}}</p>
+    </div>
+  </div>
+
+  {% endif %}
+
+
+
+  {% if i.sender_id == current_user %}
+  <div class="receiver-msg">
+    <div class="msg-container">
+      <p>{{i.chat_msg}}</p>
+      <p>{{current_user}}</p>
+    </div>
+  </div>
+  {% endif %}
+
+
+
+  {% endfor %}
+
+</div>
+
+{% endif %}
+
+{% endblock 'chat-data' %}
+
+
+
+
+{% block send-message %}
+
+{% if username %}
+
+<div id="write-message_container">
+  <form action="" id="write-message_form" method="post">
+    {% csrf_token %}
+    <input type="text" id="write-message-input" placeholder="Write message" name="msg" autocomplete="off">
+    <button type="Submit" id="send-message-btn"><i class="bi bi-send-fill"></i></button>
+  </form>
+</div>
+
+</div>
+</div>
+
+
+
+<script>
+
+  /*This is sender_username*/
+  const sender_username = "{{username}}" /*eg: soumya*/
+
+  /* to fetch curremt active user */
+  const current_user_id = "{{current_user}}"; /*eg: 21 | soumyamunsi_22 */
+
+  /*combining sender_username, current_user_id to create a chat room and sending it througn the channel url*/
+  const chat_room_name = `${sender_username}_${current_user_id}`
+
+  let ws = new WebSocket(`ws://127.0.0.1:8000/ws/sc/${chat_room_name}`); /*Fetching the data from websocket*/
+
+
+  /*onopen will run when socket get connect*/
+  ws.onopen = function (event) {
+    console.log("Connection open", event);
+  }
+
+  /*onmessage will receive data from server*/
+  ws.onmessage = function (event) {
+
+    /*Targetting the element*/
+    let chat_container = document.getElementById("chat-container");
+
+    /*to add data at html document*/
+    chat_container.insertAdjacentHTML(
+      "beforeend",
+      `
+      <div class="receiver-msg">
+      <div class="msg-container">
+      <p>${event.data}</p>
+      <p>${22}</p>
+      </div>
+      </div>`);
+
+  }
+
+  /*onopen will run when socket return any error*/
+  ws.onerror = function (event) {
+    console.log("Error occured", event);
+
+  }
+
+  /*onopen will run when socket get closed*/
+  ws.onclose = function (event) {
+    console.log("Websocket closed", event);
+
+  }
+
+  /*Function to send the message to server*/
+  function sendMessage() {
+    const button = document.getElementById("send-message-btn");
+    button.addEventListener('click', function (event) {
+      event.preventDefault(); /*To stop page reload*/
+
+      let message = document.getElementById("write-message-input").value; /*retreving message*/
+      let timeStamp = new Date(); /*retriving the date*/
+
+      /*payload object will contain all the related data about chat*/
+      const payload = {
+        "message": message,
+        "timestamp": timeStamp,
+        "current_user_id": current_user_id
+      }
+
+      /*converting payload to json*/
+      const json_payload = JSON.stringify(payload);
+
+      console.log(message);
+      console.log(timeStamp);
+      console.log(json_payload);
+
+
+      /*send() is to send the data to server*/
+      ws.send(json_payload);
+
+
+
+    })
+  }
+  sendMessage(); /*calling the function to send the message to server*/
+</script>
+
+{% endif %}
+
+{% endblock send-message %}

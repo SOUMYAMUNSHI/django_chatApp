@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block 'context' %}
+
+<div id="login-container">
+  <div id="login-form">
+    <form action="" method="post">
+      {% if err_msg %}
+      <h1>{{err_msg}}</h1>
+      {% endif %}
+      {% csrf_token %}
+      <fieldset id="login-fieldset">
+        <legend>Login</legend>
+        <label class="input-labels" for="">Enter your Email</label>
+        <input name="user-email" class="input-field" type="email" placeholder="Email" />
+        <label class="input-labels" for="">Enter your Password</label>
+        <input name="user-pass" class="input-field" type="password" placeholder="Password" />
+        <button id="submit-button" type="submit">Login</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+{% endblock 'context' %}

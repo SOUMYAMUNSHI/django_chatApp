@@ -1,0 +1,65 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from .models import Chat
+from django.db.models import Q
+
+# Create your views here.
+@login_required(login_url="Login")
+def ChatPage(request):
+    if request.method == "POST":
+        msg = request.POST['msg']
+        user = User.objects.get(id = request.user.id)
+        sender_id = request.user.id
+        receiver_id = 22 #dummy data
+
+        Chat.objects.create(user = user, chat_msg = msg, sender_id = sender_id, receiver_id = receiver_id)
+
+    
+
+    all_message = Chat.objects.all() #fetching all messages
+    all_users = User.objects.values("first_name", "username") #fetching all users
+    return render(request, "user/details.html", {'users' : all_users, 'all_message' : all_message})
+
+
+
+
+
+
+@login_required(login_url="Login")
+def Profile(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+    return render(request,"user/profile.html", {'user' : current_user})
+
+
+
+
+
+login_required(login_url="Login")
+def Search(request):
+    users = None
+    if request.method == "POST":
+        search_user = request.POST["user-name"]
+        users = User.objects.filter(Q(username__icontains = search_user) | Q(email__icontains = search_user))
+
+    
+    return render(request, "user/search.html", {"users" : users})
+
+
+
+
+
+
+
+
+login_required(login_url="Login")
+def loadChat(request, userName):
+    sender_user_id = User.objects.get(username = userName).id #fetching user id
+    current_user_id = request.user.id #getting current user id
+    all_message = Chat.objects.filter(receiver_id = current_user_id, sender_id = sender_user_id) | Chat.objects.filter(receiver_id = sender_user_id, sender_id = current_user_id) #fetching all messages based on sender_id and receiver_id
+    all_users = User.objects.values("first_name", "username") #fetching all users
+    print( type(sender_user_id))
+
+
+    return render(request, "user/details.html", {'users' : all_users, 'all_message' : all_message, 'username' : userName, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id)})

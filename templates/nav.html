@@ -1,0 +1,15 @@
+<div class="navbar-container">
+  <nav>
+    <ul>
+      {% if request.user.is_authenticated %}
+      <a href="{% url 'ChatPage' %}">Chat</a>
+      <a href="{% url 'Search' %}">Search user</a>
+      <a href="{% url  'Profile' %}">Profile</a>
+      <a href="{% url  'Logout' %}">Logout</a>
+      {% else %}
+      <a href="{% url 'Login' %}">Login</a>
+      <a href="{% url 'Signup' %}">Register</a>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
