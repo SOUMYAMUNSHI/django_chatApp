@@ -21,7 +21,7 @@ class MySyncChannel(SyncConsumer):
         self.u_names = self.chat_room_name.split("_")
 
         #making the room id
-        self.room_id = str(int(len(self.u_names[0])) + int(self.u_names[1]))
+        self.room_id = str(int(len(self.u_names[0])) + int(len(self.u_names[1])))
 
         #making a unique chat room name by adding substirng "cg_"
         self.new_chat_room_name = f"cg_{self.room_id}"
@@ -54,7 +54,7 @@ class MySyncChannel(SyncConsumer):
         self.u_names = self.chat_room_name.split("_")
 
         #making the room id
-        self.room_id = str(int(len(self.u_names[0])) + int(self.u_names[1]))
+        self.room_id = str(int(len(self.u_names[0])) + int(len(self.u_names[1])))
 
         #making a unique chat room name by adding substirng "cg_"
         self.new_chat_room_name = f"cg_{self.room_id}"
@@ -85,7 +85,7 @@ class MySyncChannel(SyncConsumer):
         print("New message received.....................",event['message'])
         self.send({
             'type':'websocket.send',
-            'text':self.new_chat_room_name
+            'text':event['message']
         })
 
 
@@ -104,7 +104,7 @@ class MySyncChannel(SyncConsumer):
         self.u_names = self.chat_room_name.split("_")
 
         #making the room id
-        self.room_id = str(int(len(self.u_names[0])) + int(self.u_names[1]))
+        self.room_id = str(int(len(self.u_names[0])) + int(len(self.u_names[1])))
 
         #making a unique chat room name by adding substirng "cg_"
         self.new_chat_room_name = f"cg_{self.room_id}"

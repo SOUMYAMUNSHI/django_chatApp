@@ -57,9 +57,10 @@ login_required(login_url="Login")
 def loadChat(request, userName):
     sender_user_id = User.objects.get(username = userName).id #fetching user id
     current_user_id = request.user.id #getting current user id
+    current_user_name = User.objects.get(id = current_user_id).username #fetching the username
     all_message = Chat.objects.filter(receiver_id = current_user_id, sender_id = sender_user_id) | Chat.objects.filter(receiver_id = sender_user_id, sender_id = current_user_id) #fetching all messages based on sender_id and receiver_id
     all_users = User.objects.values("first_name", "username") #fetching all users
     print( type(sender_user_id))
 
 
-    return render(request, "user/details.html", {'users' : all_users, 'all_message' : all_message, 'username' : userName, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id)})
+    return render(request, "user/details.html", {'users' : all_users, 'all_message' : all_message, 'username' : userName, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id), 'current_user_name' : current_user_name})
