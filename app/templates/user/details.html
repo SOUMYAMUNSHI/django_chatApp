@@ -81,7 +81,7 @@
   <form action="" id="write-message_form" method="post">
     {% csrf_token %}
     <input type="text" id="write-message-input" placeholder="Write message" name="msg" autocomplete="off">
-    <button type="Submit" id="send-message-btn"><i class="bi bi-send-fill"></i></button>
+    <button type="Submit" id="send-message-btn" onclick="sendMessage(event)"><i class="bi bi-send-fill"></i></button>
   </form>
 </div>
 
@@ -91,6 +91,9 @@
 
 
 <script>
+
+  /*msg_status variable will help to render the message on frontend*/
+  var msg_status = false
 
   /*This is sender_username*/
   const sender_username = "{{username}}" /*eg: soumya*/
@@ -114,29 +117,34 @@
 
   /*onmessage will receive data from server*/
   ws.onmessage = function (event) {
-    console.log("msg status......", send_status);
 
+    /*sendMessage will return msg_status = true,
+    but message will ewnder on receiver side if the msg_status == false.
+    that's why this condition*/
+    if (msg_status == false || msg_status == true) {
 
-    if (send_status == false) {
-      /*Targetting the element*/
-      let chat_container = document.getElementById("chat-container");
+      if (msg_status == false) {
+        /*Targetting the element*/
+        let chat_container = document.getElementById("chat-container");
 
-      /*to add data at html document*/
-      chat_container.insertAdjacentHTML(
-        "beforeend",
-        `
+        /*to add data at html document*/
+        chat_container.insertAdjacentHTML(
+          "beforeend",
+          `
       <div class="sender-msg">
       <div id="msg-container" class="msg-container">
       <p>${event.data}</p>
       <p>${22}</p>
       </div>
       </div>`);
-    }
-    else if(send_status == true){
-      send_status == false
+      }
+      if (msg_status == true) {
+        msg_status = false;
+      }
     }
 
   }
+
 
 
 
@@ -160,47 +168,43 @@
 
 
   /*Function to send the message to server*/
-  function sendMessage() {
-    const button = document.getElementById("send-message-btn");
-    button.addEventListener('click', function (event) {
-      event.preventDefault(); /*To stop page reload*/
+  function sendMessage(event) {
+    event.preventDefault(); /*To stop page reload*/
 
-      let message = document.getElementById("write-message-input").value; /*retreving message*/
-      let timeStamp = new Date(); /*retriving the date*/
+    let messageInput = document.getElementById("write-message-input").value; /*retreving message*/
+    let message = messageInput.trim();
+    let timeStamp = new Date(); /*retriving the date*/
 
-      /*payload object will contain all the related data about chat*/
-      const payload = {
-        "message": message,
-        "timestamp": timeStamp,
-        "current_user_id": current_user_id
-      }
+    /*payload object will contain all the related data about chat*/
+    const payload = {
+      "message": message,
+      "timestamp": timeStamp,
+      "current_user_id": current_user_id
+    }
 
-      /*converting payload to json*/
-      const json_payload = JSON.stringify(payload);
+    /*converting payload to json*/
+    const json_payload = JSON.stringify(payload);
 
 
-      /*send() is to send the data to server*/
-      ws.send(json_payload);
+    /*send() is to send the data to server*/
+    ws.send(json_payload);
 
-      /*Targetting the element*/
-      let chat_container = document.getElementById("chat-container");
+    /*Targetting the element*/
+    let chat_container = document.getElementById("chat-container");
 
-      /*to add data at html document*/
-      chat_container.insertAdjacentHTML(
-        "beforeend",
-        `
+    /*to add data at html document*/
+    chat_container.insertAdjacentHTML(
+      "beforeend",
+      `
       <div class="receiver-msg">
       <div class="msg-container">
       <p>${message}</p>
       <p>${22}</p>
       </div>
       </div>`);
-    })
-    return true;
-  }
 
-  var send_status = false
-  send_status = sendMessage(); /*calling the function to send the message to server*/
+    msg_status = true;
+  }
 </script>
 
 {% endif %}
