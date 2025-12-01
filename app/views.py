@@ -30,9 +30,6 @@ def ChatPage(request):
         temp_set2.add(user.receiver_name)
 
     chat_user = temp_set1.union(temp_set2)
-    chat_user_dict = dict()
-
-
 
     return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message})
 
@@ -71,6 +68,7 @@ def Search(request):
 login_required(login_url="Login")
 def loadChat(request, userName):
     sender_user_id = User.objects.get(username = userName).id #fetching user id
+    sender_first_name = User.objects.get(username = userName).first_name #fetching first_name
     current_user_id = request.user.id #getting current user id
     current_user_name = User.objects.get(id = current_user_id).username #fetching the username
     all_message = Chat.objects.filter(receiver_id = current_user_id, sender_id = sender_user_id) | Chat.objects.filter(receiver_id = sender_user_id, sender_id = current_user_id) #fetching all messages based on sender_id and receiver_id
@@ -90,4 +88,4 @@ def loadChat(request, userName):
         
 
 
-    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'username' : userName, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id), 'current_user_name' : current_user_name})
+    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'username' : userName,'first_name': sender_first_name, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id), 'current_user_name' : current_user_name})
