@@ -8,3 +8,9 @@ class Chat(models.Model):
     sender_id = models.TextField(max_length=50)
     receiver_id = models.TextField(max_length=50)
     update_at = models.DateTimeField(auto_now=True)
+
+class chatRoom(models.Model):
+    ch_room_name = models.CharField(unique=True, null=False)
+    sender_name = models.CharField(null=False)
+    receiver_name = models.CharField(null=False)
+    first_name = models.TextField(null=False)

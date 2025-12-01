@@ -4,6 +4,7 @@ from channels.consumer import SyncConsumer, AsyncConsumer
 import json
 from .models import Chat
 from django.contrib.auth.models import User
+from .models import chatRoom
 from asgiref.sync import async_to_sync
 
 
@@ -31,6 +32,14 @@ class MySyncChannel(SyncConsumer):
         # creating a group using the channel name
         # we have to convert this function into a sync function
         async_to_sync (self.channel_layer.group_add)(self.new_chat_room_name, self.channel_name)
+
+        #checking wheather the chat_room is alrady present or not
+        if not chatRoom.objects.filter(ch_room_name = self.new_chat_room_name).exists():
+            #If not present then only it will store the data in DB
+            #self.u_names[1] is sender id and self.u_names[0] is receiver_id (because the data is sent from the details.html page that way)
+            first_name = User.objects.get(username = self.u_names[0]).first_name
+            chatRoom.objects.create(ch_room_name = self.new_chat_room_name, sender_name = self.u_names[1], receiver_name = self.u_names[0],first_name = first_name)
+
 
         self.send({
             'type': 'websocket.accept'
