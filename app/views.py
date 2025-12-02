@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Chat
 from .models import chatRoom
+from .models import Image
 from django.db.models import Q
 
 # Create your views here.
@@ -42,7 +43,9 @@ def ChatPage(request):
 def Profile(request):
     if request.user.is_authenticated:
         current_user = request.user
-    return render(request,"user/profile.html", {'user' : current_user})
+        print("User id is ......................",current_user.id)
+        image = Image.objects.get(user_id = current_user.id)
+    return render(request,"user/profile.html", {'user' : current_user, 'image': image})
 
 
 

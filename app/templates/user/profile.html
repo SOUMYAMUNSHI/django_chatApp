@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 {% block 'context' %}
-<div id="profile-container">
-    <div id="profile">
-        <div id="user-img"><i id="icon" class="bi bi-person-circle"></i></div>
-        <div id="user-data">
-            <div class="user-info">
-                <p>User name: {{user.first_name}} {{user.last_name}}</p>
+<div class="profile-container">
+    <div class="view-profile">
+        <form class="input-form">
+            <h1>Profile</h1>
+            <div id="user-img">
+                <div class="img" id="img">
+                    <img id="user-image" src="{{image.image.url}}" alt="user image">
+                    <div id="mouse-hover">
+                        <i class="bi bi-card-image"></i>
+                        <p id="msg-text">Update your image</p>
+                    </div>
+                </div>
             </div>
-            <div class="user-info">
-                <p>Email: {{user.email}}</p>
-            </div>
-            <div class="user-info">
-                <p>Username: {{user.username}}</p>
-            </div>
-        </div>
+            <p>Name</p>
+            <input type="text" value="{{user.first_name}} {{user.last_name}}">
+            <p>Username</p>
+            <input type="text" value="{{user.username}}">
+            <p>Email</p>
+            <input type="email" value="{{user.email}}">
+        </form>
     </div>
+    <div class="empty-space"></div>
 </div>
 {% endblock 'context' %}

@@ -14,3 +14,8 @@ class chatRoom(models.Model):
     sender_name = models.CharField(null=False)
     receiver_name = models.CharField(null=False)
     first_name = models.TextField(null=False)
+
+class Image(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    title = models.TextField(max_length=100)
+    image = models.ImageField(upload_to="photos/")
