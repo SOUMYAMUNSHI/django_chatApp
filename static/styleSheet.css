@@ -363,6 +363,19 @@
   outline: none;
 }
 
+#user-img-icon {
+  width: 100px;
+  height: 100px;
+  background-color: gray;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+
+#user-img-icon > i {
+  font-size: 100px;
+}
+
 /*Search user style*/
 
 .search-container {
@@ -438,7 +451,23 @@
   border-bottom: 1px solid black;
 }
 
+.user-header > span {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
 .user-header > span,
 .user-header > h5 {
   margin-left: 5px;
+}
+
+.user-header > span > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid black;
 }

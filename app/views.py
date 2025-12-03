@@ -32,7 +32,15 @@ def ChatPage(request):
 
     chat_user = temp_set1.union(temp_set2)
 
-    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message})
+    images = []
+    for user in set(all_chat_users):
+            try:
+                image = Image.objects.filter(user_id = user.id)
+                images.append(image)
+            except:
+                images.append(None)
+
+    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'user_images' : images})
 
 
 
@@ -43,8 +51,10 @@ def ChatPage(request):
 def Profile(request):
     if request.user.is_authenticated:
         current_user = request.user
-        print("User id is ......................",current_user.id)
-        image = Image.objects.get(user_id = current_user.id)
+        try:
+            image = Image.objects.get(user_id = current_user.id)
+        except:
+            image = None
     return render(request,"user/profile.html", {'user' : current_user, 'image': image})
 
 
@@ -87,8 +97,13 @@ def loadChat(request, userName):
 
     chat_user = temp_set1.union(temp_set2)
 
+    try:
+        image = Image.objects.get(user_id = sender_user_id)
+    except:
+        image = None
+
 
         
 
 
-    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'username' : userName,'first_name': sender_first_name, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id), 'current_user_name' : current_user_name})
+    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'username' : userName,'first_name': sender_first_name, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id), 'current_user_name' : current_user_name, 'image': image})

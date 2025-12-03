@@ -6,7 +6,11 @@
             <h1>Profile</h1>
             <div id="user-img">
                 <div class="img" id="img">
+                    {% if image != None%}
                     <img id="user-image" src="{{image.image.url}}" alt="user image">
+                    {% else %}
+                    <div id="user-img-icon"><i id="icon" class="bi bi-person-circle"></i></div>
+                    {% endif %}
                     <div id="mouse-hover">
                         <i class="bi bi-card-image"></i>
                         <p id="msg-text">Update your image</p>
