@@ -2,14 +2,24 @@
 
 {% block 'user-data' %}
 
-{% for user in users %}
 
+
+
+
+
+{% for user, image in user_images %}
 
 
 <div class="user-card">
+
   <span class="user-image">
+    {% if image != None %}
+    <img src="{{image.image.url}}" alt="{{image.image.url}}">
+    {% else %}
     <i id="icon" class="bi bi-person-circle"></i>
+    {% endif %}
   </span>
+
   <span class="user-details">
     <a href="{% url 'loadChat' user %}">{{user}}</a>
     <h2>Active</h2>
@@ -18,8 +28,9 @@
 
 
 
-
 {% endfor %}
+
+
 {% endblock 'user-data' %}
 
 

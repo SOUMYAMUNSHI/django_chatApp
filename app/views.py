@@ -32,15 +32,16 @@ def ChatPage(request):
 
     chat_user = temp_set1.union(temp_set2)
 
-    images = []
-    for user in set(all_chat_users):
-            try:
-                image = Image.objects.filter(user_id = user.id)
-                images.append(image)
-            except:
-                images.append(None)
+    
+    images = {}
+    for username in chat_user:
+        try:
+            image = Image.objects.get(user_id = (User.objects.get(username = username).id))
+            images[username] = image
+        except:
+            images[username] = None
 
-    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'user_images' : images})
+    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'user_images' : images.items()})
 
 
 
@@ -102,8 +103,16 @@ def loadChat(request, userName):
     except:
         image = None
 
+    
+    list_images = {}
+    for username in chat_user:
+        try:
+            list_image = Image.objects.get(user_id = (User.objects.get(username = username).id))
+            list_images[username] = list_image
+        except:
+            list_images[username] = None
 
         
 
 
-    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'username' : userName,'first_name': sender_first_name, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id), 'current_user_name' : current_user_name, 'image': image})
+    return render(request, "user/details.html", {'users' : chat_user, 'all_message' : all_message, 'username' : userName,'first_name': sender_first_name, 'send_user_id' : str(sender_user_id), 'current_user':str(current_user_id), 'current_user_name' : current_user_name, 'image': image, 'user_images' : list_images.items()})

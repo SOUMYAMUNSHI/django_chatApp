@@ -153,7 +153,8 @@
   background-color: white;
   /* border-right: 1px solid black; */
   display: flex;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
+  margin-top: 5px;
 }
 
 #chat_parent > #user-details > .user-card:hover {
@@ -168,10 +169,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: crimson;
+  color: black;
+  background-color: gray;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 #icon {
   font-size: 40px;
+}
+
+.user-image > img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid black;
 }
 
 #chat_parent > #user-details > .user-card > .user-details {
