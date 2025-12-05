@@ -8,6 +8,7 @@
                 <div class="img" id="img">
                     {% if image != None%}
                     <img id="user-image" src="{{image.image.url}}" alt="user image">
+                    <input type="file" id="image_input" accept=".jpg, .png" hidden>
                     {% else %}
                     <div id="user-img-icon"><i id="icon" class="bi bi-person-circle"></i></div>
                     {% endif %}
@@ -18,13 +19,51 @@
                 </div>
             </div>
             <p>Name</p>
-            <input type="text" value="{{user.first_name}} {{user.last_name}}">
+            <span class="input-container">
+                <input type="text" id="name" value="{{user.first_name}} {{user.last_name}}" disabled>
+                <i class="bi bi-pencil-fill" id="update"></i>
+            </span>
             <p>Username</p>
-            <input type="text" value="{{user.username}}">
+            <input type="text" value="{{user.username}}" disabled>
             <p>Email</p>
-            <input type="email" value="{{user.email}}">
+            <input type="email" value="{{user.email}}" disabled>
+            <button id="submit-button" class="submit-button"><i class="bi bi-check-lg"></i>Update</button>
         </form>
     </div>
     <div class="empty-space"></div>
 </div>
+<script>
+    /*Targetting img div*/
+    const image = document.getElementById("img");
+    image.addEventListener("click", () => {
+        document.getElementById("image_input").click();
+    });
+
+    const update = document.getElementById("update");
+    update.addEventListener("click", () => {
+        const name = document.getElementById("name");
+        name.removeAttribute("disabled");
+        name.focus();
+        name.style.fontSize = "17px"
+        const submit_button = document.getElementById("submit-button");
+        submit_button.style.display = "block";
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!update.contains(event.target)) {
+            const name = document.getElementById("name");
+            name.setAttribute("disabled", "true");
+            name.style.fontSize = "16px"
+            const submit_button = document.getElementById("submit-button");
+            submit_button.style.display = "none";
+        }
+    });
+
+    const image_input = document.getElementById("image_input");
+    image_input.addEventListener("click", () => {
+        let submit_button = document.getElementById("submit-button");
+        submit_button.style.display = "block";
+    })
+
+</script>
 {% endblock 'context' %}

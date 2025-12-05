@@ -10,11 +10,10 @@ def Login_(request):
         userEmail = request.POST['user-email']
         userPass = request.POST['user-pass']
         try:
-            username = User.objects.get(email = userEmail) #fetching the username to authenticate the user
-            print("responce", username)
+            username = User.objects.get(email = userEmail).username #fetching the username to authenticate the user
             responce = authenticate(request, username = username, password = userPass)
-            login(request, responce) #save the user id in session
             if responce is not None:
+                login(request, responce) #save the user id in session
                 return redirect("ChatPage")
             else:
                 return render(request, "login_.html", {"err_msg" : "Crederntials not found"})

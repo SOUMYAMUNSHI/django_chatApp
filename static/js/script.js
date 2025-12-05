@@ -15,3 +15,12 @@ img.addEventListener("mouseout", () => {
   let img = document.getElementById("user-image");
   img.style.filter = "blur(0px)";
 });
+
+
+
+
+
+
+
+
+

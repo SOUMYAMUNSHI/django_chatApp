@@ -147,14 +147,13 @@
 }
 
 /*details page style (user-card portion)*/
-#chat_parent > #user-details > .user-card {
+#chat_parent > #user-details > .user-card-link > .user-card {
   width: 100%;
-  height: 60px;
+  height: 50px;
   background-color: white;
-  /* border-right: 1px solid black; */
   display: flex;
-  /* margin-bottom: 5px; */
   margin-top: 5px;
+  margin-left: 5px;
 }
 
 #chat_parent > #user-details > .user-card:hover {
@@ -163,7 +162,7 @@
   border-radius: 10px;
 }
 
-#chat_parent > #user-details > .user-card > .user-image {
+#chat_parent > #user-details > .user-card-link > .user-card > .user-image {
   align-self: flex-start;
   width: 15%;
   display: flex;
@@ -174,6 +173,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  margin-top: 5px;
 }
 #icon {
   font-size: 40px;
@@ -186,7 +186,7 @@
   border: 2px solid black;
 }
 
-#chat_parent > #user-details > .user-card > .user-details {
+#chat_parent > #user-details > .user-card-link > .user-card > .user-details {
   width: auto;
   display: flex;
   flex-direction: column;
@@ -194,13 +194,28 @@
   padding: 5px;
 }
 
-#chat_parent > #user-details > .user-card > .user-details > h1 {
+#chat_parent
+  > #user-details
+  > .user-card-link
+  > .user-card
+  > .user-details
+  > h1 {
   height: 50%;
   font-size: 15px;
   color: #323643;
 }
 
-#chat_parent > #user-details > .user-card > .user-details > h2 {
+.user-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+#chat_parent
+  > #user-details
+  > .user-card-link
+  > .user-card
+  > .user-details
+  > h2 {
   height: 50%;
   font-size: 10px;
   color: green;
@@ -304,10 +319,8 @@
 }
 
 .input-form {
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center; */
 }
 
 .input-form > h1 {
@@ -386,6 +399,36 @@
 
 #user-img-icon > i {
   font-size: 100px;
+}
+.input-container > input {
+  margin-left: 5px;
+  border: none;
+  border-bottom: 1px solid black;
+  width: 80%;
+  padding: 5px;
+  font-size: 16px;
+}
+.input-container > input:focus {
+  outline: none;
+}
+#update {
+  color: rgb(82, 82, 82);
+  width: 20px;
+}
+
+.input-form > .submit-button {
+  width: 80px;
+  align-self: center;
+  margin-top: 20px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  height: 30px;
+  cursor: pointer;
+  display: none;
+}
+.input-form > .submit-button > i {
+  font-size: 17px;
 }
 
 /*Search user style*/
